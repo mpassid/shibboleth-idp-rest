@@ -1,0 +1,17 @@
+language: java
+
+jdk:
+  - openjdk7
+
+script:
+  git clone https://github.com/mpassid/shibboleth-idp-authn-discovery
+  cd shibboleth-idp-authn-discovery
+  mvn install
+  cd ..
+  mvn clean package
+
+after_failure:
+  - cat target/surefire-reports/*.txt
+
+after_success:
+  - mvn clean cobertura:cobertura coveralls:report
