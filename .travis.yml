@@ -3,11 +3,11 @@ language: java
 jdk:
   - openjdk7
 
+before_install:
+  - git clone https://github.com/mpassid/shibboleth-idp-authn-discovery
+  - mvn install -f shibboleth-idp-authn-discovery/pom.xml
+
 script:
-  git clone https://github.com/mpassid/shibboleth-idp-authn-discovery
-  cd shibboleth-idp-authn-discovery
-  mvn install
-  cd ..
   mvn clean package
 
 after_failure:
