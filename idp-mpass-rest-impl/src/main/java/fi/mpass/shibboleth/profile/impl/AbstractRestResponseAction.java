@@ -25,6 +25,7 @@ package fi.mpass.shibboleth.profile.impl;
 
 import javax.annotation.Nonnull;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 import org.apache.http.entity.ContentType;
 import org.slf4j.Logger;
@@ -45,7 +46,18 @@ public class AbstractRestResponseAction extends AbstractProfileAction {
     /** Class logger. */
     @Nonnull private final Logger log = LoggerFactory.getLogger(AbstractRestResponseAction.class);
     
+    /** The additional headers to be added to the HTTP response. */
+    protected Map<String, String> additionalHeaders;
+    
     /**
+     * Set the additional headers to be added to the HTTP response.
+     * @param headers What to set.
+     */
+    public void setAdditionalHeaders(final Map<String, String> headers) {
+        additionalHeaders = headers;
+    }
+    
+     /**
      * Push common REST/JSON settings to {@link HttpServletResponse}.
      */
     protected void pushHttpResponseProperties() {
@@ -53,6 +65,12 @@ public class AbstractRestResponseAction extends AbstractProfileAction {
         HttpServletSupport.addNoCacheHeaders(httpResponse);
         HttpServletSupport.setUTF8Encoding(httpResponse);
         HttpServletSupport.setContentType(httpResponse, ContentType.APPLICATION_JSON.toString());
+        if (additionalHeaders != null) {
+            for (String name : additionalHeaders.keySet()) {
+                httpResponse.addHeader(name, additionalHeaders.get(name));
+                log.debug("{} Added an additional header {}", getLogPrefix(), name);
+            }
+        }
     }
 
     /**
