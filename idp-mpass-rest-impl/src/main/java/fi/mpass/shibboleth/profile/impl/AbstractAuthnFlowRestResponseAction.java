@@ -48,7 +48,6 @@ import org.springframework.webflow.execution.RequestContext;
 
 import com.google.gson.Gson;
 
-import fi.mpass.shibboleth.authn.AuthenticationDiscoveryContext;
 import net.shibboleth.idp.authn.AuthenticationFlowDescriptor;
 import net.shibboleth.idp.profile.ActionSupport;
 import net.shibboleth.utilities.java.support.component.ComponentInitializationException;
@@ -183,7 +182,7 @@ public abstract class AbstractAuthnFlowRestResponseAction extends AbstractRestRe
         }
         boolean mpassPrincipalFound = false;
         for (final Principal principal : principals) {
-            if (principal.getName().startsWith(AuthenticationDiscoveryContext.PRINCIPAL_PREFIX)) {
+            if (principal.getName().startsWith("urn:mpass.id:")) {
                 mpassPrincipalFound = true;
             }
         }
@@ -223,9 +222,9 @@ public abstract class AbstractAuthnFlowRestResponseAction extends AbstractRestRe
         final List<String> tags = new ArrayList<>();
         for (final Principal principal : flow.getSupportedPrincipals()) {
             final String name = principal.getName();
-            if (name.startsWith(AuthenticationDiscoveryContext.TAG_PRINCIPAL_PREFIX)) {
+            if (name.startsWith("urn:mpass.id:authntag:")) {
                 final String strippedName = 
-                        name.substring((AuthenticationDiscoveryContext.TAG_PRINCIPAL_PREFIX).length());
+                        name.substring(("urn:mpass.id:authntag:").length());
                 tags.add(strippedName);
                 log.debug("{} Added {} as a tag for {}", getLogPrefix(), strippedName, id);
             } else {

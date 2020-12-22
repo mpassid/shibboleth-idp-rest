@@ -25,7 +25,7 @@ THE SOFTWARE.
     <parent>
         <artifactId>idp-rest</artifactId>
         <groupId>fi.mpass</groupId>
-        <version>0.9.5</version>
+        <version>1.0.0-SNAPSHOT</version>
         <relativePath>..</relativePath>
     </parent>
     <artifactId>idp-mpass-rest-impl</artifactId>
@@ -39,15 +39,15 @@ THE SOFTWARE.
         </license>
     </licenses>
 
+    <properties>
+        <automatic.module.name>fi.mpass.rest.impl</automatic.module.name>
+    </properties>
+
     <dependencies>
         <!-- Compile Dependencies -->
         <dependency>
             <groupId>fi.mpass</groupId>
             <artifactId>idp-mpass-rest-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>fi.mpass</groupId>
-            <artifactId>idp-authn-api-discovery</artifactId>
         </dependency>
         <dependency>
             <groupId>net.shibboleth.idp</groupId>
@@ -60,6 +60,10 @@ THE SOFTWARE.
         <dependency>
             <groupId>net.shibboleth.idp</groupId>
             <artifactId>idp-saml-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.shibboleth.idp</groupId>
+            <artifactId>idp-saml-impl</artifactId>
         </dependency>
 
         <dependency>
@@ -80,14 +84,6 @@ THE SOFTWARE.
             <artifactId>spring-extensions</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>${spring-webflow.groupId}</groupId>
-            <artifactId>spring-webflow</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity</artifactId>
-        </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
@@ -163,7 +159,7 @@ THE SOFTWARE.
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
                     <tarLongFileMode>posix</tarLongFileMode>
-                    <descriptor>src/main/assembly/dep.xml</descriptor>
+                    <descriptors>src/main/assembly/dep.xml</descriptors>
                     <finalName>shibboleth-idp-rest-${project.version}</finalName>
                     <appendAssemblyId>false</appendAssemblyId>
                     <outputDirectory>../target</outputDirectory>
