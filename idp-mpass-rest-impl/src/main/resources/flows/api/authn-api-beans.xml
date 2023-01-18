@@ -30,7 +30,7 @@
     <bean id="MPASS.properties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
         <property name="locations">
             <list>
-                <value>/opt/shibboleth-idp/conf/mpass.properties</value>
+                <value>../../../messages/mpassid-messages.properties</value>
             </list>
         </property>
     </bean>

@@ -41,11 +41,11 @@ import org.testng.annotations.Test;
 
 import com.google.gson.Gson;
 
-import fi.mpass.shibboleth.profile.impl.BuildMetaRestResponse;
 import fi.mpass.shibboleth.rest.data.ErrorDTO;
 import fi.mpass.shibboleth.rest.data.MetaDTO;
-import net.shibboleth.idp.profile.ActionTestingSupport;
+import net.shibboleth.idp.profile.testing.ActionTestingSupport;
 import net.shibboleth.utilities.java.support.component.ComponentInitializationException;
+
 
 /**
  * Unit tests for {@link BuildMetaRestResponse}.

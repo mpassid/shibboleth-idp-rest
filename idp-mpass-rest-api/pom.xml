@@ -25,7 +25,7 @@ THE SOFTWARE.
     <parent>
         <artifactId>idp-rest</artifactId>
         <groupId>fi.mpass</groupId>
-        <version>1.0.1-SNAPSHOT</version>
+        <version>1.1</version>
         <relativePath>..</relativePath>
     </parent>
     <artifactId>idp-mpass-rest-api</artifactId>
@@ -55,7 +55,13 @@ THE SOFTWARE.
         <!-- Runtime Dependencies -->
 
         <!-- Test Dependencies -->
-
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${org.testing.version}</version>
+            <scope>test</scope>
+        </dependency>
+        
     </dependencies>
     
     <build>

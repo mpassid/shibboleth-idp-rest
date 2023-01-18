@@ -21,13 +21,13 @@ THE SOFTWARE.
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>net.shibboleth.idp</groupId>
-        <artifactId>idp-parent</artifactId>
-        <version>4.0.0</version>
+        <groupId>net.shibboleth</groupId>
+        <artifactId>parent</artifactId>
+        <version>11.3.3</version>
     </parent>
     <groupId>fi.mpass</groupId>
     <artifactId>idp-rest</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.1</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -36,12 +36,16 @@ THE SOFTWARE.
     </modules>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <checkstyle.configLocation>mpassid-checkstyle.xml</checkstyle.configLocation>
+        <gson.version>2.9.0</gson.version>
+        <junit.version>4.12</junit.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <shib.idp.version>4.0.0</shib.idp.version>
-        <gson.version>2.8.6</gson.version>
-        <checkstyle.configLocation>mpassid-checkstyle.xml</checkstyle.configLocation>
+        <opensaml.groupId>org.opensaml</opensaml.groupId>
+        <opensaml.version>4.2.0</opensaml.version>
+        <org.testing.version>6.14.3</org.testing.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <shib.idp.version>4.2.1</shib.idp.version>
         <simpleframework.version>6.0.1</simpleframework.version>
     </properties>
 
@@ -169,7 +173,7 @@ THE SOFTWARE.
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.12</version>
+                <version>${junit.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
