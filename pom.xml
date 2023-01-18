@@ -38,7 +38,7 @@ THE SOFTWARE.
     <properties>
         <checkstyle.configLocation>mpassid-checkstyle.xml</checkstyle.configLocation>
         <gson.version>2.9.0</gson.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <opensaml.groupId>org.opensaml</opensaml.groupId>
