@@ -24,7 +24,7 @@
 package fi.mpass.shibboleth.profile.impl;
 
 import javax.annotation.Nonnull;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 import org.apache.http.entity.ContentType;
@@ -35,7 +35,7 @@ import com.google.gson.Gson;
 
 import fi.mpass.shibboleth.rest.data.ErrorDTO;
 import net.shibboleth.idp.profile.AbstractProfileAction;
-import net.shibboleth.utilities.java.support.net.HttpServletSupport;
+import net.shibboleth.shared.servlet.HttpServletSupport;
 
 /**
  * A base class for actions publishing JSON information.

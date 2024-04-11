@@ -36,7 +36,7 @@ import org.slf4j.LoggerFactory;
 
 import fi.mpass.shibboleth.rest.data.AuthnTagDTO;
 import net.shibboleth.idp.authn.AuthenticationFlowDescriptor;
-import net.shibboleth.utilities.java.support.component.ComponentInitializationException;
+import net.shibboleth.shared.component.ComponentInitializationException;
 
 /**
  * This action builds a response containing {@link AuthnTagDTO}s.

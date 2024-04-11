@@ -28,8 +28,8 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 
 import javax.annotation.Nonnull;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.apache.http.HttpStatus;
 import org.opensaml.profile.action.EventIds;
@@ -43,9 +43,9 @@ import com.google.gson.Gson;
 
 import fi.mpass.shibboleth.rest.data.MetaDTO;
 import net.shibboleth.idp.profile.ActionSupport;
-import net.shibboleth.utilities.java.support.component.ComponentInitializationException;
-import net.shibboleth.utilities.java.support.component.ComponentSupport;
-import net.shibboleth.utilities.java.support.logic.Constraint;
+import net.shibboleth.shared.component.ComponentInitializationException;
+import net.shibboleth.shared.component.ComponentSupport;
+import net.shibboleth.shared.logic.Constraint;
 
 /**
  * This class builds a JSON response corresponding to the attached {@link MetaDTO} object.
@@ -111,6 +111,7 @@ public class BuildMetaRestResponse extends AbstractRestResponseAction {
             httpResponse.setStatus(HttpStatus.SC_SERVICE_UNAVAILABLE);
             return ActionSupport.buildEvent(this, EventIds.IO_ERROR);
         }
+        
         return ActionSupport.buildProceedEvent(this);
     }
 }
