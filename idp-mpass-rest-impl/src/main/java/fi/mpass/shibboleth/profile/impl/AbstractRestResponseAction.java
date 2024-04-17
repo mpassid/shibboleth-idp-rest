@@ -40,7 +40,6 @@ import net.shibboleth.shared.servlet.HttpServletSupport;
 /**
  * A base class for actions publishing JSON information.
  */
-@SuppressWarnings("rawtypes")
 public class AbstractRestResponseAction extends AbstractProfileAction {
 
     /** Class logger. */

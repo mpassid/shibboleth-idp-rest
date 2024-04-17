@@ -44,7 +44,6 @@ import com.google.gson.Gson;
 import fi.mpass.shibboleth.rest.data.MetaDTO;
 import net.shibboleth.idp.profile.ActionSupport;
 import net.shibboleth.shared.component.ComponentInitializationException;
-import net.shibboleth.shared.component.ComponentSupport;
 import net.shibboleth.shared.logic.Constraint;
 
 /**
@@ -87,7 +86,7 @@ public class BuildMetaRestResponse extends AbstractRestResponseAction {
     /** {@inheritDoc} */
     @Override
     @Nonnull public Event execute(@Nonnull final RequestContext springRequestContext) {
-        ComponentSupport.ifNotInitializedThrowUninitializedComponentException(this);        
+        ifNotInitializedThrowUninitializedComponentException();        
         final HttpServletRequest httpRequest = getHttpServletRequest();
         pushHttpResponseProperties();
         final HttpServletResponse httpResponse = getHttpServletResponse();

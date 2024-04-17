@@ -51,7 +51,6 @@ import com.google.gson.Gson;
 import net.shibboleth.idp.authn.AuthenticationFlowDescriptor;
 import net.shibboleth.idp.profile.ActionSupport;
 import net.shibboleth.shared.component.ComponentInitializationException;
-import net.shibboleth.shared.component.ComponentSupport;
 import net.shibboleth.shared.logic.Constraint;
 import net.shibboleth.shared.primitive.StringSupport;
 
@@ -237,7 +236,7 @@ public abstract class AbstractAuthnFlowRestResponseAction extends AbstractRestRe
     /** {@inheritDoc} */
     @Override
     @Nonnull public Event execute(@Nonnull final RequestContext springRequestContext) {
-        ComponentSupport.ifNotInitializedThrowUninitializedComponentException(this);
+        ifNotInitializedThrowUninitializedComponentException();
         final HttpServletRequest httpRequest = getHttpServletRequest();
         final String lang = (StringSupport.trimOrNull(httpRequest.getParameter("lang")) == null) 
                 ? supportedLocales.get(0) : StringSupport.trim(httpRequest.getParameter("lang")).toUpperCase();

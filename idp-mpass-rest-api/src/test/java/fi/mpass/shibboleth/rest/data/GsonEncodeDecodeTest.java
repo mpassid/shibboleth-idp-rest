@@ -29,9 +29,6 @@ import org.testng.annotations.Test;
 
 import com.google.gson.Gson;
 
-import fi.mpass.shibboleth.rest.data.ErrorDTO;
-import fi.mpass.shibboleth.rest.data.MetaDTO;
-
 /**
  * Unit tests for the data transfer objects.
  */
