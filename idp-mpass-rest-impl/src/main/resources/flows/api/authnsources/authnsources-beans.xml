@@ -23,8 +23,8 @@
 
     <bean id="BuildResponse"
             class="fi.mpass.shibboleth.profile.impl.BuildAuthnSourceRestResponse" scope="prototype"
-            p:httpServletRequest-ref="shibboleth.HttpServletRequest"
-            p:httpServletResponse-ref="shibboleth.HttpServletResponse"
+            p:httpServletRequestSupplier-ref="shibboleth.HttpServletRequestSupplier"
+            p:httpServletResponseSupplier-ref="shibboleth.HttpServletResponseSupplier"
             p:activeFlowIds="%{idp.authn.flows}" 
             p:flows-ref="shibboleth.AvailableAuthenticationFlows"
             p:additionalInfo-ref="MPASS.properties"
