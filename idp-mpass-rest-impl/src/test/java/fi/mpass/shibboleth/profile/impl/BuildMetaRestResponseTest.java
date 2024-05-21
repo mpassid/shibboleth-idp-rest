@@ -40,6 +40,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.google.common.net.MediaType;
 import com.google.gson.Gson;
 
 import fi.mpass.shibboleth.rest.data.ErrorDTO;
@@ -186,6 +187,7 @@ public class BuildMetaRestResponseTest {
         final MockHttpServletResponse httpResponse = (MockHttpServletResponse) action.getHttpServletResponse();
         Assert.assertNotNull(httpResponse.getContentAsString());
         Assert.assertEquals(httpResponse.getStatus(), HttpStatus.SC_OK);
+        Assert.assertEquals(httpResponse.getHeaderValue("Content-Type"), MediaType.JSON_UTF_8.toString());
         final Gson gson = new Gson();
         final MetaDTO resultDTO = gson.fromJson(httpResponse.getContentAsString(), MetaDTO.class);
         Assert.assertEquals(resultDTO.getId(), metaDTO.getId());
