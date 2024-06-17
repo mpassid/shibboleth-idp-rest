@@ -25,7 +25,7 @@ THE SOFTWARE.
     <parent>
         <artifactId>idp-rest</artifactId>
         <groupId>fi.mpass</groupId>
-        <version>1.1</version>
+        <version>1.2</version>
         <relativePath>..</relativePath>
     </parent>
     <artifactId>idp-mpass-rest-api</artifactId>

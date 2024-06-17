@@ -24,10 +24,9 @@
 package fi.mpass.shibboleth.profile.impl;
 
 import javax.annotation.Nonnull;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.Map;
 
-import org.apache.http.entity.ContentType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,12 +34,13 @@ import com.google.gson.Gson;
 
 import fi.mpass.shibboleth.rest.data.ErrorDTO;
 import net.shibboleth.idp.profile.AbstractProfileAction;
-import net.shibboleth.utilities.java.support.net.HttpServletSupport;
+import net.shibboleth.shared.servlet.HttpServletSupport;
+
+import com.google.common.net.MediaType;
 
 /**
  * A base class for actions publishing JSON information.
  */
-@SuppressWarnings("rawtypes")
 public class AbstractRestResponseAction extends AbstractProfileAction {
 
     /** Class logger. */
@@ -64,7 +64,7 @@ public class AbstractRestResponseAction extends AbstractProfileAction {
         final HttpServletResponse httpResponse = getHttpServletResponse();
         HttpServletSupport.addNoCacheHeaders(httpResponse);
         HttpServletSupport.setUTF8Encoding(httpResponse);
-        HttpServletSupport.setContentType(httpResponse, ContentType.APPLICATION_JSON.toString());
+        HttpServletSupport.setContentType(httpResponse, MediaType.JSON_UTF_8.toString());
         if (additionalHeaders != null) {
             for (String name : additionalHeaders.keySet()) {
                 httpResponse.addHeader(name, additionalHeaders.get(name));

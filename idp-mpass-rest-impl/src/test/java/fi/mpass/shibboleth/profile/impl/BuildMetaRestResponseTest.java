@@ -26,7 +26,8 @@ package fi.mpass.shibboleth.profile.impl;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.apache.http.HttpStatus;
 import org.mockito.Mockito;
@@ -39,12 +40,14 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.google.common.net.MediaType;
 import com.google.gson.Gson;
 
 import fi.mpass.shibboleth.rest.data.ErrorDTO;
 import fi.mpass.shibboleth.rest.data.MetaDTO;
 import net.shibboleth.idp.profile.testing.ActionTestingSupport;
-import net.shibboleth.utilities.java.support.component.ComponentInitializationException;
+import net.shibboleth.shared.component.ComponentInitializationException;
+import net.shibboleth.shared.primitive.NonnullSupplier;
 
 
 /**
@@ -96,8 +99,25 @@ public class BuildMetaRestResponseTest {
         action = new BuildMetaRestResponse();
         final MockHttpServletRequest httpRequest = new MockHttpServletRequest();
         httpRequest.setMethod(HttpMethod.GET.toString());
-        action.setHttpServletRequest(httpRequest);
-        action.setHttpServletResponse(new MockHttpServletResponse());
+        action.setHttpServletRequestSupplier(new NonnullSupplier<HttpServletRequest>() {
+
+            @Override
+            public MockHttpServletRequest get() {
+                return httpRequest;
+            }
+            
+        });
+        //action.setHttpServletResponseSupplier(new MockHttpServletResponse());
+        final MockHttpServletResponse httpResponse = new MockHttpServletResponse();
+        action.setHttpServletResponseSupplier(new NonnullSupplier<HttpServletResponse>() {
+
+            @Override
+            public MockHttpServletResponse get() {
+                return httpResponse;
+            }
+            
+        });
+        
     }
 
     /**
@@ -109,7 +129,14 @@ public class BuildMetaRestResponseTest {
     public void testInvalidMethod() throws UnsupportedEncodingException, ComponentInitializationException {
         final MockHttpServletRequest httpRequest = new MockHttpServletRequest();
         httpRequest.setMethod(HttpMethod.POST.toString());
-        action.setHttpServletRequest(httpRequest);
+        action.setHttpServletRequestSupplier(new NonnullSupplier<HttpServletRequest>() {
+
+            @Override
+            public MockHttpServletRequest get() {
+                return httpRequest;
+            }
+            
+        });
         verifyErrorDTO(action, HttpStatus.SC_METHOD_NOT_ALLOWED);
     }
 
@@ -132,7 +159,14 @@ public class BuildMetaRestResponseTest {
     public void testIOException() throws ComponentInitializationException, IOException {
         HttpServletResponse mockResponse = Mockito.mock(HttpServletResponse.class);
         Mockito.doThrow(new IOException("mockException")).when(mockResponse).getOutputStream();
-        action.setHttpServletResponse(mockResponse);
+        action.setHttpServletResponseSupplier(new NonnullSupplier<HttpServletResponse>() {
+
+            @Override
+            public HttpServletResponse get() {
+                return mockResponse;
+            }
+            
+        });
         action.initialize();
         ActionTestingSupport.assertEvent(action.execute((RequestContext) null), EventIds.IO_ERROR);
     }
@@ -153,6 +187,7 @@ public class BuildMetaRestResponseTest {
         final MockHttpServletResponse httpResponse = (MockHttpServletResponse) action.getHttpServletResponse();
         Assert.assertNotNull(httpResponse.getContentAsString());
         Assert.assertEquals(httpResponse.getStatus(), HttpStatus.SC_OK);
+        Assert.assertEquals(httpResponse.getHeaderValue("Content-Type"), MediaType.JSON_UTF_8.toString());
         final Gson gson = new Gson();
         final MetaDTO resultDTO = gson.fromJson(httpResponse.getContentAsString(), MetaDTO.class);
         Assert.assertEquals(resultDTO.getId(), metaDTO.getId());
