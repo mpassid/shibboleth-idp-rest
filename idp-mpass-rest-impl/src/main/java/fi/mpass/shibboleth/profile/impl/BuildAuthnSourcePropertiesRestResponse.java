@@ -33,6 +33,7 @@ import javax.annotation.Nonnull;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.NoSuchMessageException;
 
 import fi.mpass.shibboleth.rest.data.AuthnSourceDTO;
 import net.shibboleth.shared.annotation.constraint.NonnullAfterInit;
@@ -71,8 +72,20 @@ public class BuildAuthnSourcePropertiesRestResponse extends AbstractAuthnFlowRes
         for (final String locale : getSupportedLocales()) {
             flowInformation.put(locale, new ArrayList<AuthnSourceDTO>());
         }
-        for (final String flow : flowPropertiesConfiguration.getFlowProperties().keySet()) {
+        flowLoop: for (final String flow : flowPropertiesConfiguration.getFlowProperties().keySet()) {
             final String id = (flow.startsWith("authn")) ? flow.substring(6) : flow;
+            for (final String locale : getSupportedLocales()) {
+                try {
+                    if ("true".equalsIgnoreCase(getMessageSource().getMessage(
+                            id + ".hideFromAuthnSources", null, Locale.forLanguageTag(locale)))) {
+                        log.debug("{} Skipping flow {} from the output", getLogPrefix(), id);
+                        continue flowLoop;
+                    }
+                } catch (final NoSuchMessageException e) {
+                    // the if-clause above cannot be true if message not found
+                }
+                
+            }
             log.debug("{} Adding flow {}", getLogPrefix(), id);
             final String titleProperty = getAdditionalInfo().getProperty(id + ".title", id + ".title");
             final String iconUrlProperty = getAdditionalInfo().getProperty(id + ".iconUrl", id + ".iconUrl");
